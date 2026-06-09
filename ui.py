@@ -5,9 +5,9 @@ from config import *
 class UIManager:
     def __init__(self, screen):
         self.screen = screen
-        self.font_small = pygame.font.Font(None, 24)
-        self.font_medium = pygame.font.Font(None, 32)
-        self.font_large = pygame.font.Font(None, 48)
+        self.font_small = get_chinese_font(24)
+        self.font_medium = get_chinese_font(32)
+        self.font_large = get_chinese_font(48)
 
         self.tower_buttons = []
         self._create_tower_buttons()

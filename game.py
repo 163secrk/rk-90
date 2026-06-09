@@ -61,8 +61,11 @@ class TowerDefenseGame:
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    pygame.quit()
-                    sys.exit()
+                    if self.ui_manager.selected_tower_type:
+                        self.ui_manager.selected_tower_type = None
+                    else:
+                        pygame.quit()
+                        sys.exit()
                 elif event.key == pygame.K_SPACE:
                     if not self.game_over:
                         if self.wave_manager.can_start_next_wave(pygame.time.get_ticks()):
@@ -71,10 +74,7 @@ class TowerDefenseGame:
                     if not self.game_over:
                         self.paused = not self.paused
                 elif event.key == pygame.K_r:
-                    if self.game_over:
-                        self.reset()
-                elif event.key == pygame.K_ESCAPE and self.ui_manager.selected_tower_type:
-                    self.ui_manager.selected_tower_type = None
+                    self.reset()
 
             if event.type == pygame.MOUSEMOTION:
                 self.ui_manager.update_mouse_pos(event.pos[0], event.pos[1])
@@ -212,7 +212,7 @@ class TowerDefenseGame:
         pygame.display.flip()
 
     def draw_floating_texts(self):
-        font = pygame.font.Font(None, 24)
+        font = get_chinese_font(24)
         for ft in self.floating_texts:
             alpha = int(255 * (ft['life'] / 60))
             text_surface = font.render(ft['text'], True, ft['color'])

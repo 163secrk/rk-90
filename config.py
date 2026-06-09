@@ -1,9 +1,29 @@
 import pygame
+import os
 
 SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 800
 GRID_SIZE = 40
 FPS = 60
+
+
+def get_chinese_font(size):
+    font_candidates = [
+        "Microsoft YaHei",
+        "SimHei",
+        "SimSun",
+        "KaiTi",
+        "FangSong",
+        "Arial Unicode MS",
+    ]
+    for font_name in font_candidates:
+        try:
+            font_path = pygame.font.match_font(font_name)
+            if font_path:
+                return pygame.font.Font(font_path, size)
+        except Exception:
+            continue
+    return pygame.font.Font(None, size)
 
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
